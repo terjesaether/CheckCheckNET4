@@ -1,0 +1,107 @@
+﻿<Window x:Name="mainWindow" x:Class="CheckCheckNET4.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CheckCheckNET4"
+        
+        mc:Ignorable="d"
+        Title="CheckCheckNET4 v0.6" MinHeight="860" MaxHeight="860" WindowStartupLocation="CenterScreen" MaxWidth="1200" MinWidth="1200" d:DesignWidth="1200" Loaded="mainWindow_Loaded" KeyDown="shortCutPress">
+    <Window.Resources>
+
+
+
+
+    </Window.Resources>
+
+    <Grid x:Name="outerGrid">
+
+        <TabControl x:Name="tabControl" HorizontalAlignment="Left" Width="1160" Margin="10,10,10,10" VerticalAlignment="Top">
+            <TabItem Header="Hoved" >
+                <Grid Name="mainGrid" Background="Beige" >
+                    <Grid Margin="10, 0, 0, 10" Height="70" VerticalAlignment="Top" Name="gridTop">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="180"></ColumnDefinition>
+                            <ColumnDefinition Width="170"></ColumnDefinition>
+                            <ColumnDefinition Width="170"></ColumnDefinition>
+                            <ColumnDefinition Width="120"></ColumnDefinition>
+                            <ColumnDefinition Width="90"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
+                            <ColumnDefinition Width="170"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="txtActorName" Grid.Column="0" HorizontalAlignment="Left" FontSize="20" Height="35" Margin="0,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="173" AutomationProperties.HelpText="Søk etter.."/>
+                        <Button x:Name="btnCheckActor" Grid.Column="1" IsDefault="true" Content="Sjekk dubber på én bolk" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Width="155" Height="35" Click="btnCheckActor_Click"/>
+                        <Button x:Name="btnCheckAllEps" Grid.Column="2" Content="Sjekk dubber på alt" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,10,0,0" Width="155" Height="35" Click="btnCheckAllEps_Click"/>
+
+                        <RadioButton x:Name="radioSearchActor" GroupName="Search" IsChecked="True" Grid.Column="3" Content="Søk på dubber" HorizontalAlignment="Left" Margin="0,15,0,0" VerticalAlignment="Top" Checked="radioSearchActor_Checked"/>
+                        <RadioButton x:Name="radioSearchRole" GroupName="Search" Grid.Column="3" Content="Søk på rolle" HorizontalAlignment="Left" Margin="0,35,0,0" VerticalAlignment="Top" Checked="radioSearchRole_Checked"/>
+
+                        <Label Grid.Column="4" Content="Repl. pr time:" Height="70" VerticalAlignment="Bottom" />
+                        <ComboBox Name="comboLinesPrHour" SelectedValuePath="Content" Margin="0,25,0,0" Grid.Column="4" Width="70" Height="25" ToolTip="Antall replikker pr time" SelectionChanged="comboLinesPrHour_SelectionChanged" >
+
+                            <ComboBoxItem Content="30"/>
+                            <ComboBoxItem Content="50"/>
+                            <ComboBoxItem Content="70"/>
+                            <ComboBoxItem IsSelected="True" Content="90"/>
+                            <ComboBoxItem Content="110"/>
+                            <ComboBoxItem Content="130"/>
+                        </ComboBox>
+                        <Label Grid.Column="5" Content="Scan mappe:"></Label>
+                        <RadioButton Name="radioLocalFolder" Grid.Column="5" GroupName="Folder" IsChecked="True" Margin="0,25,0,0" Content="Lokal mappe" Checked="dubtoolFolder_Checked" />
+                        <RadioButton Grid.Column="5" Name="serverFolder" GroupName="Folder" Content="Servermappe" Margin="0,45,0,0" Checked="dubtoolFolder_Checked"/>
+
+
+
+                        <CheckBox x:Name="chckIntro" Grid.Column="6" IsChecked="True" Content="Ikke vis intro / plakat" HorizontalAlignment="Left" Margin="10,10,0,0"  VerticalAlignment="Top"/>
+                        <CheckBox x:Name="chbxShowMengder" Content="Vis mengder" Grid.Column="6" Margin="10, 30, 0,0" IsChecked="True"></CheckBox>
+                        <Button x:Name="btnRescanFolder" Grid.Column="7" Content="Scan mappe på nytt" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Width="150" Height="35" Click="btnRescanFolder_Click"/>
+
+                    </Grid>
+
+                    <Grid Height="50" VerticalAlignment="Top" Margin="10, 50, 10, 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="270"></ColumnDefinition>
+                            <ColumnDefinition Width="600"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Name="lblChosenDubber" Grid.Column="0" Foreground="Red" Margin="0,-3,0,8" Text="{Binding Text, ElementName=txtActorName}" FontSize="18" FontWeight="Bold" />
+                        <TextBlock Name="lblTotalNumLines" Margin="251,13,46,2" FontSize="15" Grid.ColumnSpan="2" Text="" />
+                    </Grid>
+
+                    <Grid Margin="0, 90, 0, 0" Height="740" VerticalAlignment="Top" Name="gridBig">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="260"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <ListBox x:Name="lboxShowFiles" Grid.Column="0" HorizontalAlignment="Left" Height="685" Margin="10, 0, 0, 0" VerticalAlignment="Top" Width="240" SelectionChanged="lboxShowFiles_SelectionChanged" SelectionMode="Extended"/>
+
+                        <ListBox x:Name="spShowResult" Height="685" Margin="0, 0, 10, 0" HorizontalContentAlignment="Stretch" VerticalAlignment="Top" Grid.Column="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+
+
+                        </ListBox>
+
+
+                    </Grid>
+
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="Forside">
+
+                <DataGrid x:Name="dataGridView1" ItemsSource="{Binding}" Width="1150" Height="800" Background="Aquamarine" Margin="10,10,10,10"/>
+            </TabItem>
+
+        </TabControl>
+        <StackPanel Width="200" Height="200" Background="AliceBlue" Visibility="Hidden">
+            <TextBox Width="50" Height="50"></TextBox>
+            <Button Content="Ok"></Button>
+        </StackPanel>
+    </Grid>
+
+</Window>
+
+    
